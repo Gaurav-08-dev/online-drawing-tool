@@ -5,8 +5,8 @@ import styles from "./index.module.css"
 const Menu = () => {
     return (
         <div className={styles.menuContainer}>
-            <div>
-                <FontAwesomeIcon icon={faPencil} />
+            <div className={styles.iconWrapper}>
+                <FontAwesomeIcon icon={faPencil} className={styles.icon} />
             </div>
             <div className={styles.iconWrapper}>
                 <FontAwesomeIcon icon={faEraser} className={styles.icon} />
