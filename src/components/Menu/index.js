@@ -27,7 +27,7 @@ const Menu = () => {
                     onClick={() => handleMenuClick(MENU_ITEMS.PENCIL)}
                 />
             </div>
-            <div className={styles.iconWrapper}>
+            <div className={cx(styles.iconWrapper, { [styles.active]: activeMenuItem === MENU_ITEMS.ERASER })}>
                 <FontAwesomeIcon
                     icon={faEraser}
                     className={styles.icon}
@@ -35,7 +35,7 @@ const Menu = () => {
 
                 />
             </div>
-            <div className={styles.iconWrapper}>
+            <div className={cx(styles.iconWrapper, { [styles.active]: activeMenuItem === MENU_ITEMS.UNDO })}>
                 <FontAwesomeIcon
                     icon={faRotateLeft}
                     className={styles.icon}
@@ -43,7 +43,7 @@ const Menu = () => {
 
                 />
             </div>
-            <div className={styles.iconWrapper}>
+            <div className={cx(styles.iconWrapper, { [styles.active]: activeMenuItem === MENU_ITEMS.REDO })}>
                 <FontAwesomeIcon
                     icon={faRotateRight}
                     className={styles.icon}
@@ -51,7 +51,7 @@ const Menu = () => {
 
                 />
             </div>
-            <div className={styles.iconWrapper}>
+            <div className={cx(styles.iconWrapper, { [styles.active]: activeMenuItem === MENU_ITEMS.DOWNLOAD })}>
                 <FontAwesomeIcon
                     icon={faFileArrowDown}
                     className={styles.icon}
