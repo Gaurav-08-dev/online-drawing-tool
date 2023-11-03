@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./index.module.css";
 
@@ -21,7 +21,6 @@ const Board = () => {
         const context = canvas.getContext('2d');
 
         const changeConfig = () => {
-
             context.strokeStyle = color;
             context.lineWidth = size;
         }
@@ -31,7 +30,8 @@ const Board = () => {
     }, [color, size])
 
 
-    useEffect(() => {
+    // before browser paints
+    useLayoutEffect(() => {
 
         if (!canvasRef.current) {
             return;
@@ -43,16 +43,23 @@ const Board = () => {
         canvas.height = window.innerHeight;
 
 
+        const beginPath = (x, y) => {
+            context.beginPath() // beginning to draw
+            context.moveTo(x, y) // start in given coordinates
+        }
+
+        const drawLine = (x,y) =>{
+            context.lineTo(x, y) // move to given coordinates
+            context.stroke() // draw a line between coordinates travelled
+        }
+
         const handleMousedown = (e) => {
             shouldDraw.current = true;
-            context.beginPath() // beginning to draw
-            context.moveTo(e.clientX, e.clientY) // start in given coordinates
-
+            beginPath(e.clientX, e.clientY)
         }
         const handleMousemove = (e) => {
             if (!shouldDraw.current) return;
-            context.lineTo(e.clientX, e.clientY) // move to given coordinates
-            context.stroke() // draw a line between coordinates travelled
+            drawLine(e.clientX,e.clientY)
 
         }
         const handleMouseup = (e) => {
