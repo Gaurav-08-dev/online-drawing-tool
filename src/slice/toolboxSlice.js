@@ -13,20 +13,7 @@ const initialState = {
         size: 3
     },
 
-    [MENU_ITEMS.REDO]: {
-
-
-    },
-
-    [MENU_ITEMS.UNDO]: {
-
-
-    },
-
-    [MENU_ITEMS.DOWNLOAD]: {
-
-
-    },
+   
 
 }
 

@@ -3,14 +3,16 @@ import { faPencil, faEraser, faRotateLeft, faRotateRight, faFileArrowDown } from
 import styles from "./index.module.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { menuItemClick, actionItemClick } from '@/slice/menuSlice';
-import { MENU_ITEMS } from '@/Constants';
+import { COLORS, MENU_ITEMS } from '@/Constants';
 import cx from "classnames"
+import { socket } from '@/socket';
 
 const Menu = () => {
 
     const dispatch = useDispatch();
 
-    const { activeMenuItem, actionMenuItem } = useSelector((state) => state.menu)
+    const { activeMenuItem } = useSelector((state) => state.menu)
+    const { size } = useSelector((state) => state.toolbox[activeMenuItem])
 
 
     const handleMenuClick = (itemName) => {
@@ -25,13 +27,16 @@ const Menu = () => {
 
     return (
         <div className={styles.menuContainer}>
-            <div className={cx(styles.iconWrapper, { [styles.active]: activeMenuItem === MENU_ITEMS.PENCIL })} onClick={() => handleMenuClick(MENU_ITEMS.PENCIL)}>
+            <div className={cx(styles.iconWrapper, { [styles.active]: activeMenuItem === MENU_ITEMS.PENCIL })} onClick={() => { handleMenuClick(MENU_ITEMS.PENCIL) }}>
                 <FontAwesomeIcon
                     icon={faPencil}
                     className={styles.icon}
                 />
             </div>
-            <div className={cx(styles.iconWrapper, { [styles.active]: activeMenuItem === MENU_ITEMS.ERASER })} onClick={() => handleMenuClick(MENU_ITEMS.ERASER)}>
+            <div className={cx(styles.iconWrapper, { [styles.active]: activeMenuItem === MENU_ITEMS.ERASER })} onClick={() => {
+                handleMenuClick(MENU_ITEMS.ERASER);
+                socket.emit('changeConfig', { color: COLORS.WHITE, size })
+            }}>
                 <FontAwesomeIcon
                     icon={faEraser}
                     className={styles.icon}
